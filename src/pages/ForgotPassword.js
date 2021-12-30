@@ -3,6 +3,7 @@ import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
 import { useDispatch, useSelector } from "react-redux";
+import { forgotPasswordLink } from "../actions/auth";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -20,8 +21,9 @@ const MyTextInput = ({ label, ...props }) => {
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  // const registerStatus = useSelector((state) => state.ui);
-  const message = useSelector((state) => state.ui);
+  const { message, status } = useSelector((state) => state.ui);
+
+  console.log("Forgot Password msg", message);
   const initialState = {
     email: "",
   };
@@ -30,11 +32,9 @@ const ForgotPassword = () => {
       {message && (
         <div className="form-group">
           <div
-            className={
-              message.status ? "alert alert-success" : "alert alert-danger"
-            }
+            className={status ? "alert alert-success" : "alert alert-danger"}
           >
-            {message.message}
+            {message}
           </div>
         </div>
       )}
@@ -46,8 +46,9 @@ const ForgotPassword = () => {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            // forgotPassword(values);
-            dispatch();
+            console.log(values);
+            // Dispatching an action for sending the email to the server
+            dispatch(forgotPasswordLink(values));
             setSubmitting(false);
           }, 400);
         }}

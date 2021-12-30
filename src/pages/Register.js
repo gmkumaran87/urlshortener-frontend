@@ -23,7 +23,7 @@ const MyTextInput = ({ label, ...props }) => {
 const Register = () => {
   const dispatch = useDispatch();
   // const registerStatus = useSelector((state) => state.ui);
-  const message = useSelector((state) => state.ui.notification);
+  const { message, status } = useSelector((state) => state.ui);
 
   const initialState = {
     firstname: "",
@@ -32,20 +32,18 @@ const Register = () => {
     password: "",
   };
 
-  console.log("Register component -", message);
-
   return (
     <>
       {message && (
         <div className="form-group">
           <div
             className={
-              message.status === "success"
+              status === "success"
                 ? "alert alert-success"
                 : "alert alert-danger"
             }
           >
-            {message.message}
+            {message}
           </div>
         </div>
       )}
@@ -66,7 +64,6 @@ const Register = () => {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            console.log(values);
             // Sending the User values to store in DB
             dispatch(registerUser(values));
 

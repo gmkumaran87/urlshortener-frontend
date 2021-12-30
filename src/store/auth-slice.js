@@ -14,10 +14,6 @@ const authSlice = createSlice({
         },
         logout() {},
         register(state, action) {},
-        changeStatus(state, action) {
-            console.log("Called");
-            state.isClicked = action.payload;
-        },
     },
 });
 

@@ -2,14 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
     name: "ui",
-    initialState: { notification: null },
+    initialState: { message: null, status: null, isLoading: false },
     reducers: {
         showNotification(state, action) {
             console.log("Before update uiSlice");
-            state.notification = {
-                message: action.payload.message,
-                status: action.payload.status,
-            };
+            state.message = action.payload.message;
+            state.status = action.payload.status;
+            state.isLoading = action.payload.isLoading;
+        },
+        setLoading(state, action) {
+            state.isLoading = true;
+            state.message = action.payload.message;
         },
     },
 });
