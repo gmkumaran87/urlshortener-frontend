@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register } from "../services/auth.service";
 
 const authSlice = createSlice({
     name: "auth",
     initialState: {
         isLoggedIn: false,
         user: [],
+        isClicked: false, // If Login or Sign Up link clicked then change the status to True
     },
     reducers: {
         login(state, action) {
@@ -14,6 +14,10 @@ const authSlice = createSlice({
         },
         logout() {},
         register(state, action) {},
+        changeStatus(state, action) {
+            console.log("Called");
+            state.isClicked = action.payload;
+        },
     },
 });
 

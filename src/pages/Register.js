@@ -3,26 +3,27 @@ import { Form, useField, Formik } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
 import { NavLink } from "react-router-dom";
-// import { useGlobalContext } from "../context/Context";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../actions/auth";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
     <>
-      <label htmlFor={props.id || props.name}> {label} </label>{" "}
-      <input className="text-input" {...props} {...field}>
-        {" "}
-      </input>{" "}
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <input className="text-input" {...props} {...field}></input>
       {meta.touched && meta.error ? (
-        <div className="error"> {meta.error} </div>
-      ) : null}{" "}
+        <div className="error">{meta.error}</div>
+      ) : null}
     </>
   );
 };
 
 const Register = () => {
-  // const { registerUser, register } = useGlobalContext();
+  const dispatch = useDispatch();
+  // const registerStatus = useSelector((state) => state.ui);
+  const message = useSelector((state) => state.ui.notification);
 
   const initialState = {
     firstname: "",
@@ -31,9 +32,23 @@ const Register = () => {
     password: "",
   };
 
+  console.log("Register component -", message);
+
   return (
     <>
-      {register.isError && <p className="error-msg"> {register.errorMsg} </p>}
+      {message && (
+        <div className="form-group">
+          <div
+            className={
+              message.status === "success"
+                ? "alert alert-success"
+                : "alert alert-danger"
+            }
+          >
+            {message.message}
+          </div>
+        </div>
+      )}
       <h2> Create an Account </h2>
       <Formik
         initialValues={initialState}
@@ -51,8 +66,9 @@ const Register = () => {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
+            console.log(values);
             // Sending the User values to store in DB
-            registerUser(values);
+            dispatch(registerUser(values));
 
             setSubmitting(false);
           }, 400);
@@ -85,17 +101,17 @@ const Register = () => {
             placeholder="Please enter the Password"
           />
           <button type="submit" className="btn login-btn">
-            Submit{" "}
-          </button>{" "}
+            Submit
+          </button>
           <div className="login-action">
             <p className="blue">
-              <NavLink className="blue" to="/">
-                Back to Login{" "}
-              </NavLink>{" "}
-            </p>{" "}
-          </div>{" "}
-        </Form>{" "}
-      </Formik>{" "}
+              <NavLink className="blue" to="/login">
+                Back to Login
+              </NavLink>
+            </p>
+          </div>
+        </Form>
+      </Formik>
     </>
   );
 };

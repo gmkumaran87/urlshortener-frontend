@@ -2,35 +2,43 @@ import React from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
-import { useGlobalContext } from "../context/Context";
+import { useDispatch, useSelector } from "react-redux";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
     <>
-      <label htmlFor={props.id || props.name}>{label}</label>
+      <label htmlFor={props.id || props.name}> {label} </label>
       <input className="text-input" {...props} {...field}></input>
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <div className="error"> {meta.error} </div>
       ) : null}
     </>
   );
 };
 
 const ForgotPassword = () => {
-  const { forgotPassword, passwordForgot, activationMsg } = useGlobalContext();
-
+  const dispatch = useDispatch();
+  // const registerStatus = useSelector((state) => state.ui);
+  const message = useSelector((state) => state.ui);
   const initialState = {
     email: "",
   };
   return (
     <>
-      {passwordForgot.isError && (
-        <p className="error-msg">{passwordForgot.errorMsg}</p>
+      {message && (
+        <div className="form-group">
+          <div
+            className={
+              message.status ? "alert alert-success" : "alert alert-danger"
+            }
+          >
+            {message.message}
+          </div>
+        </div>
       )}
-      {activationMsg && <p className="success-msg">{activationMsg}</p>}
-      <h2>Forgot Password</h2>
+      <h2> Forgot Password </h2>
       <Formik
         initialValues={initialState}
         validationSchema={Yup.object({
@@ -38,7 +46,8 @@ const ForgotPassword = () => {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            forgotPassword(values);
+            // forgotPassword(values);
+            dispatch();
             setSubmitting(false);
           }, 400);
         }}

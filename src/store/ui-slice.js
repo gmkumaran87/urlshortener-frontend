@@ -3,11 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const uiSlice = createSlice({
     name: "ui",
     initialState: { notification: null },
-    showNotification(state, action) {
-        state.notification = {
-            message: action.payload.message,
-            status: action.payload.status,
-        };
+    reducers: {
+        showNotification(state, action) {
+            console.log("Before update uiSlice");
+            state.notification = {
+                message: action.payload.message,
+                status: action.payload.status,
+            };
+        },
     },
 });
 
