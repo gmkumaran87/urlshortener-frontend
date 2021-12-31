@@ -7,6 +7,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Center from "./wrappers/Center";
 import Main from "./components/Main";
 import ResetPassword from "./pages/ResetPassword";
+import AccountActivation from "./components/AccountActivation";
 
 // import { useSelector, useDispatch } from "react-redux";
 // import { authActions } from "./store/auth-slice";
@@ -23,6 +24,10 @@ function App() {
           <Route
             path="/reset-password/:userId/:randomStr"
             element={<ResetPassword />}
+          />
+          <Route
+            path="/confirm/:confirmationCode"
+            element={<AccountActivation />}
           />
         </Routes>
       </Center>

@@ -9,8 +9,9 @@ const register = async(obj) => {
 };
 
 const login = async(obj) => {
-    const result = await axios.post(API_URL, obj);
-    if (result.status === 200) {
+    const result = await axios.post(`${API_URL}/login`, obj);
+
+    if (result.status === 201) {
         localStorage.setItem("user", JSON.stringify(result.data));
     }
     return result;
@@ -28,4 +29,16 @@ const emailLink = async(userId, randomStr) =>
 
 const passwordReset = async(obj) =>
     await axios.post(`${API_URL}/update-password`, obj);
-export { register, login, logout, emailLink, forgotPassword, passwordReset };
+
+const verifyUser = async(confirmCode) =>
+    await axios.get(`${API_URL}/confirm/${confirmCode}`);
+
+export {
+    register,
+    login,
+    logout,
+    emailLink,
+    forgotPassword,
+    passwordReset,
+    verifyUser,
+};

@@ -75,7 +75,7 @@ const ResetForm = () => {
 
             // Waiting in the page for the message
             setTimeout(() => {
-              navigate("/");
+              navigate("/login");
             }, 5000);
           }, 400);
           resetForm("");

@@ -8,6 +8,7 @@ import {
     logout,
     emailLink,
     passwordReset,
+    verifyUser,
 } from "../services/auth.service";
 
 const registerUser = (userObj) => {
@@ -33,6 +34,30 @@ const registerUser = (userObj) => {
     };
 };
 
+const loginUser = (obj) => {
+    return async(dispatch) => {
+        try {
+            console.log("In Actions", obj);
+            const result = await login(obj);
+            console.log(result);
+            if (result.status === 201) {
+                dispatch(
+                    authActions.login({
+                        isLoggedIn: true,
+                        user: result.data,
+                    })
+                );
+            }
+        } catch (error) {
+            dispatch(
+                uiActions.showNotification({
+                    status: "error",
+                    message: error.response.data.msg,
+                })
+            );
+        }
+    };
+};
 const forgotPasswordLink = (email) => {
     return async(dispatch) => {
         try {
@@ -108,4 +133,37 @@ const updatePassword = (userObj) => {
     };
 };
 
-export { registerUser, forgotPasswordLink, emailValidation, updatePassword };
+const accountActivation = (confirmationCode) => {
+    return async(dispatch) => {
+        try {
+            const result = await verifyUser(confirmationCode);
+
+            if (result.status === 200) {
+                dispatch(
+                    uiActions.showNotification({
+                        status: "success",
+                        message: result.data.msg,
+                        isLoading: false,
+                    })
+                );
+            }
+        } catch (error) {
+            dispatch(
+                uiActions.showNotification({
+                    status: "error",
+                    message: error.response.data.msg,
+                    isLoading: false,
+                })
+            );
+        }
+    };
+};
+
+export {
+    registerUser,
+    loginUser,
+    forgotPasswordLink,
+    emailValidation,
+    updatePassword,
+    accountActivation,
+};
