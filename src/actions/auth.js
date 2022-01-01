@@ -42,6 +42,12 @@ const loginUser = (obj) => {
             console.log(result);
             if (result.status === 201) {
                 dispatch(
+                    uiActions.showNotification({
+                        status: "success",
+                        message: result.data.msg,
+                    })
+                );
+                dispatch(
                     authActions.login({
                         isLoggedIn: true,
                         user: result.data,
@@ -49,6 +55,7 @@ const loginUser = (obj) => {
                 );
             }
         } catch (error) {
+            console.log(error.response);
             dispatch(
                 uiActions.showNotification({
                     status: "error",

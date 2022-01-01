@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, useField, Formik } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions/auth";
+import { uiActions } from "../store/ui-slice";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -31,6 +32,11 @@ const Register = () => {
     email: "",
     password: "",
   };
+
+  useEffect(() => {
+    // Clearing the message and status while starting of the app
+    dispatch(uiActions.clearNotification());
+  }, []);
 
   return (
     <>

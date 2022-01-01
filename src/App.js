@@ -8,11 +8,15 @@ import Center from "./wrappers/Center";
 import Main from "./components/Main";
 import ResetPassword from "./pages/ResetPassword";
 import AccountActivation from "./components/AccountActivation";
+import { useEffect } from "react";
 
 // import { useSelector, useDispatch } from "react-redux";
 // import { authActions } from "./store/auth-slice";
 
 function App() {
+  useEffect(() => {
+    console.log("Calling while changing the screen");
+  }, []);
   return (
     <Router>
       <Center>

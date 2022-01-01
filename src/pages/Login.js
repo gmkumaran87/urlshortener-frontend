@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, useField } from "formik";
 import { NavLink } from "react-router-dom";
 import * as Yup from "yup";
 import { loginUser } from "../actions/auth";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { uiActions } from "../store/ui-slice";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -21,12 +22,34 @@ const MyTextInput = ({ label, ...props }) => {
 
 const Login = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("Calling while changing the screen");
+    dispatch(uiActions.clearNotification());
+  }, [dispatch]);
+
+  // Getting the state
+  const { message, status } = useSelector((state) => state.ui);
+
   const loginState = {
     email: "",
     password: "",
   };
   return (
     <>
+      {message && (
+        <div className="form-group">
+          <div
+            className={
+              status === "success"
+                ? "alert alert-success"
+                : "alert alert-danger"
+            }
+          >
+            {message}
+          </div>
+        </div>
+      )}
       <h2> Login and Start Sharing your URL </h2>
       <Formik
         initialValues={loginState}

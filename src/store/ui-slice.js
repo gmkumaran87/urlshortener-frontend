@@ -14,6 +14,11 @@ const uiSlice = createSlice({
             state.isLoading = true;
             state.message = action.payload.message;
         },
+        clearNotification(state, action) {
+            state.message = null;
+            state.status = null;
+            state.isLoading = false;
+        },
     },
 });
 

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 import "./Form.css";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPasswordLink } from "../actions/auth";
+import { uiActions } from "../store/ui-slice";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -24,6 +25,11 @@ const ForgotPassword = () => {
   const { message, status } = useSelector((state) => state.ui);
 
   console.log("Forgot Password msg", message);
+  useEffect(() => {
+    console.log("Calling while changing the screen");
+    dispatch(uiActions.clearNotification());
+  }, [dispatch]);
+
   const initialState = {
     email: "",
   };
