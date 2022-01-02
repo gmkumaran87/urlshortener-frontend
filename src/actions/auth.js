@@ -37,9 +37,8 @@ const registerUser = (userObj) => {
 const loginUser = (obj) => {
     return async(dispatch) => {
         try {
-            console.log("In Actions", obj);
             const result = await login(obj);
-            console.log(result);
+
             if (result.status === 201) {
                 dispatch(
                     uiActions.showNotification({

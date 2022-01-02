@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Formik, Form, useField } from "formik";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { loginUser } from "../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,8 +23,9 @@ const MyTextInput = ({ label, ...props }) => {
 const Login = () => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("Calling while changing the screen");
     dispatch(uiActions.clearNotification());
   }, [dispatch]);
 
@@ -64,10 +65,11 @@ const Login = () => {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            console.log(values);
             dispatch(loginUser(values));
             setSubmitting(false);
           }, 400);
+          console.log("After dispatching Login");
+          // navigate("/user");
           resetForm({ values: "" });
         }}
       >
