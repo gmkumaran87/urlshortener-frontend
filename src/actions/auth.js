@@ -41,15 +41,15 @@ const loginUser = (obj) => {
 
             if (result.status === 201) {
                 dispatch(
-                    uiActions.showNotification({
-                        status: "success",
-                        message: result.data.msg,
-                    })
-                );
-                dispatch(
                     authActions.login({
                         isLoggedIn: true,
                         user: result.data,
+                    })
+                );
+                dispatch(
+                    uiActions.showNotification({
+                        status: "success",
+                        message: result.data.msg,
                     })
                 );
             }

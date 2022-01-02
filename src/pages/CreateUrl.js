@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import "./Form.css";
 import Navbar from "../components/Navbar";
+import { createShortUrl } from "../actions/userActions";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -24,7 +25,7 @@ const CreateUrl = () => {
   const { message, status } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const urlState = {
-    url: "",
+    originalUrl: "",
   };
   return (
     <>
@@ -46,11 +47,12 @@ const CreateUrl = () => {
       <Formik
         initialValues={urlState}
         validationSchema={Yup.object({
-          url: Yup.string().required("Please enter valid URL"),
+          originalUrl: Yup.string().required("Please enter valid URL"),
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
-            dispatch();
+            console.log(values);
+            dispatch(createShortUrl(values));
             setSubmitting(false);
           }, 400);
           resetForm("");
@@ -59,7 +61,7 @@ const CreateUrl = () => {
         <Form className="form login-form">
           <MyTextInput
             label="Enter the Url"
-            name="url"
+            name="originalUrl"
             type="text"
             placeholder="Please enter the URL"
           />

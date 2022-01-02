@@ -3,7 +3,10 @@ import authHeader from "./auth-header";
 
 const API_URL_USER = "http://localhost:5000/api/v1/url";
 
-const getUserUrl = async(userId) =>
-    await axios.get(`${API_URL_USER}/${userId}`, { headers: authHeader() });
+const getUserUrl = async() =>
+    await axios.get(`${API_URL_USER}/`, { headers: authHeader() });
 
-export default getUserUrl;
+const sendUserUrl = async(url) =>
+    await axios.post(`${API_URL_USER}/`, url, { headers: authHeader() });
+
+export { sendUserUrl, getUserUrl };

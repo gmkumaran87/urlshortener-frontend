@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 // import { authActions } from "../store/auth-slice";
 import "./Navbar.css";
 
@@ -9,10 +9,6 @@ const Navbar = () => {
   const authState = useSelector((state) => state.auth);
 
   const isLoggedin = authState.isLoggedIn;
-
-  // const handleClick = (e) => {
-  //   dispatch(authActions.changeStatus(true));
-  // };
 
   return (
     <nav className="nav-bar">

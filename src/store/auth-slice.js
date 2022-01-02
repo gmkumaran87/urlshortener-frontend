@@ -15,6 +15,9 @@ const authSlice = createSlice({
         },
         logout() {},
         register(state, action) {},
+        setLoggedIn(state, action) {
+            state.isLoggedIn = true;
+        },
     },
 });
 

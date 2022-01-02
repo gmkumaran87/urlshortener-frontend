@@ -25,12 +25,21 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(uiActions.clearNotification());
-  }, [dispatch]);
-
   // Getting the state
   const { message, status } = useSelector((state) => state.ui);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  // const updateLogin = (values) => {
+  //   dispatch(loginUser(values));
+  // };
+
+  useEffect(() => {
+    dispatch(uiActions.clearNotification());
+    if (isLoggedIn) {
+      console.log("Navigating to User page");
+      navigate("/user");
+    }
+  }, [isLoggedIn, navigate, dispatch]);
 
   const loginState = {
     email: "",
@@ -69,7 +78,7 @@ const Login = () => {
             setSubmitting(false);
           }, 400);
           console.log("After dispatching Login");
-          // navigate("/user");
+
           resetForm({ values: "" });
         }}
       >
