@@ -13,7 +13,7 @@ const AccountActivation = () => {
   // Sending the account activation code to Backend for the verification
   useEffect(() => {
     dispatch(accountActivation(confirmationCode));
-  }, []);
+  }, [dispatch, confirmationCode]);
 
   return (
     <>

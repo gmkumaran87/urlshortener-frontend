@@ -37,7 +37,7 @@ const Register = () => {
   useEffect(() => {
     // Clearing the message and status while starting of the app
     dispatch(uiActions.clearNotification());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

@@ -5,7 +5,6 @@ import {
     forgotPassword,
     register,
     login,
-    logout,
     emailLink,
     passwordReset,
     verifyUser,

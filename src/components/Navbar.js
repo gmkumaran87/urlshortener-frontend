@@ -1,14 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { authActions } from "../store/auth-slice";
+import { logout } from "../services/auth.service";
 import "./Navbar.css";
 
 const Navbar = () => {
   // const dispatch = useDispatch();
+  const navigate = useNavigate();
   const authState = useSelector((state) => state.auth);
 
   const isLoggedin = authState.isLoggedIn;
+
+  const logoutHandler = (e) => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <nav className="nav-bar">
@@ -27,7 +33,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <a className="link" href="/login">
+              <a className="link" href="/login" onClick={logoutHandler}>
                 Logout
               </a>
             </li>
