@@ -1,0 +1,22 @@
+.emp-table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-top: .5rem;
+}
+
+tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+td,
+th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}

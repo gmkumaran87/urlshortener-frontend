@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./Form.css";
 import Navbar from "../components/Navbar";
 import { createShortUrl } from "../actions/userActions";
+import Center from "../wrappers/Center";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -30,46 +31,48 @@ const CreateUrl = () => {
   return (
     <>
       <Navbar />
-      {message && (
-        <div className="form-group">
-          <div
-            className={
-              status === "success"
-                ? "alert alert-success"
-                : "alert alert-danger"
-            }
-          >
-            {message}
+      <Center>
+        {message && (
+          <div className="form-group">
+            <div
+              className={
+                status === "success"
+                  ? "alert alert-success"
+                  : "alert alert-danger"
+              }
+            >
+              {message}
+            </div>
           </div>
-        </div>
-      )}
-      <h2> Login and Start Sharing your URL </h2>
-      <Formik
-        initialValues={urlState}
-        validationSchema={Yup.object({
-          originalUrl: Yup.string().required("Please enter valid URL"),
-        })}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setTimeout(() => {
-            console.log(values);
-            dispatch(createShortUrl(values));
-            setSubmitting(false);
-          }, 400);
-          resetForm("");
-        }}
-      >
-        <Form className="form login-form">
-          <MyTextInput
-            label="Enter the Url"
-            name="originalUrl"
-            type="text"
-            placeholder="Please enter the URL"
-          />
-          <button type="submit" className="btn">
-            Submit
-          </button>
-        </Form>
-      </Formik>
+        )}
+        <h2> Login and Start Sharing your URL </h2>
+        <Formik
+          initialValues={urlState}
+          validationSchema={Yup.object({
+            originalUrl: Yup.string().required("Please enter valid URL"),
+          })}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setTimeout(() => {
+              console.log(values);
+              dispatch(createShortUrl(values));
+              setSubmitting(false);
+            }, 400);
+            resetForm("");
+          }}
+        >
+          <Form className="form login-form">
+            <MyTextInput
+              label="Enter the Url"
+              name="originalUrl"
+              type="text"
+              placeholder="Please enter the URL"
+            />
+            <button type="submit" className="btn">
+              Submit
+            </button>
+          </Form>
+        </Formik>
+      </Center>
     </>
   );
 };

@@ -1,0 +1,39 @@
+.card {
+    border-radius: 3px;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, .4);
+    width: 90%;
+    color: #fff;
+    font-family: inherit;
+    width: 200px;
+    background: #8DD6FC;
+    background: -webkit-linear-gradient(left, #8DD6FC, #1835E6);
+    background: -moz-linear-gradient(left, #8DD6FC, #1835E6);
+    background: linear-gradient(to right, #8DD6FC, #1835E6);
+    padding: .7rem 1rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.url-count {
+    font-size: 1.3rem;
+}
+
+.card-desc {
+    text-transform: capitalize;
+    margin-top: .51rem;
+    font-family: inherit;
+    letter-spacing: 2px;
+    font-size: .9rem;
+}
+
+.card .col1 {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.card svg {
+    font-size: 2.2rem;
+}

@@ -38,4 +38,8 @@
         .activation-page {
             max-width: 500px;
         }
+        .main-center {
+            width: 80%;
+            margin: 2rem auto;
+        }
     }
