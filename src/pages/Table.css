@@ -20,3 +20,7 @@ th {
     border: 1px solid #ccc;
     text-align: left;
 }
+
+.origUrl {
+    width: 600px;
+}

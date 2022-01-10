@@ -6,7 +6,7 @@ const Table = (props) => {
   console.log(originalUrl);
   return (
     <tr>
-      <td>{originalUrl}</td>
+      <td className="origUrl">{originalUrl}</td>
       <td>{shortUrl}</td>
       <td>{createdAt}</td>
       <td>{hits} </td>

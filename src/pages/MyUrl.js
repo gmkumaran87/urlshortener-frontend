@@ -1,12 +1,34 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import Center from "../wrappers/Center";
 import Table from "./Table";
+import { authActions } from "../store/auth-slice";
+import { getUserUrl } from "../services/user.service";
 
 const MyUrl = () => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
+  // Getting the latest Urls created by the User
+  useEffect(() => {
+    const getUrl = async () => {
+      try {
+        const result = await getUserUrl();
+        console.log(result);
+        if (result.status === 200) {
+          const payload = {
+            countUrl: result.data.countUrl,
+            userUrl: result.data.userUrl,
+          };
+          dispatch(authActions.loadUser(payload));
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    getUrl();
+  }, [dispatch]);
   console.log(user);
   return (
     <>
